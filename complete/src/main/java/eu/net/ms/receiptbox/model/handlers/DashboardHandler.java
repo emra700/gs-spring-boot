@@ -25,7 +25,7 @@ public class DashboardHandler {
             dashboard = new Dashboard("1", 0, 0);
         }
         dashboard.increaseNumberOfQueriesBy(1);
-        dashboardRepository.save(dashboard);
+        dashboardRepository.save(new Dashboard(dashboard.getDashboardId(), dashboard.getNumberOfReceipts(), dashboard.getNumberOfQueries()));
     }
 
     @EventHandler
@@ -35,7 +35,7 @@ public class DashboardHandler {
             dashboard = new Dashboard("1", 0, 0);
         }
         dashboard.increaseNumberOfReceiptsBy(1);
-        dashboardRepository.save(dashboard);
+        dashboardRepository.save(new Dashboard(dashboard.getDashboardId(), dashboard.getNumberOfReceipts(), dashboard.getNumberOfQueries()));
     }
 
     @EventHandler
@@ -45,6 +45,6 @@ public class DashboardHandler {
             dashboard = new Dashboard("1", 0, 0);
         }
         dashboard.increaseNumberOfReceiptsBy(1);
-        dashboardRepository.save(dashboard);
+        dashboardRepository.save(new Dashboard(dashboard.getDashboardId(), dashboard.getNumberOfReceipts(), dashboard.getNumberOfQueries()));
     }
 }

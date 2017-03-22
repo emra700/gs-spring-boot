@@ -2,6 +2,7 @@ package eu.net.ms.receiptbox.model.enteties;
 
 import lombok.*;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -16,13 +17,15 @@ public class Dashboard {
     @Id
     @Getter
     private String dashboardId;
+    @Basic
     @Getter
     private int numberOfReceipts;
+    @Basic
     @Getter
     private int numberOfQueries;
 
     public void increaseNumberOfReceiptsBy(int amount) {
-        numberOfReceipts = numberOfQueries + amount;
+        numberOfReceipts = numberOfReceipts + amount;
     }
     public void increaseNumberOfQueriesBy(int amount) {
         numberOfQueries = numberOfQueries + amount;

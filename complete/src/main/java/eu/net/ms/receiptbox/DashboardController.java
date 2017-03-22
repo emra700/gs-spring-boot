@@ -20,4 +20,14 @@ public class DashboardController {
     public Dashboard getDashboard() {
         return dashboardRepository.findOne("1");
     }
+
+    @DeleteMapping(value = "/dashboard", produces = {APPLICATION_JSON_VALUE})
+    public int deleteAll() {
+        try {
+            dashboardRepository.deleteAll();
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
 }

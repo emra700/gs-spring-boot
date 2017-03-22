@@ -32,6 +32,8 @@ public class ReceiptController {
     private ReceiptRepository receiptRepository;
     @Autowired
     private CustomerAppRepository customerAppRepository;
+    @Autowired
+    private DashboardRepository dashboardRepository;
 
     @GetMapping(value = "/receipts", produces = {APPLICATION_JSON_VALUE})
     public Iterable<Receipt> getAllReceipts() {
@@ -79,23 +81,7 @@ public class ReceiptController {
             throw new RuntimeException("");
         }
     }
-/*
-    @PostMapping(value ="/asset", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
-    public AssetRequest insertReceipt(@RequestBody AssetRequest assetRequest) {
-        if (assetRequest.getAsset().getKeys().get("customerid") == null)
-            commandGateway.send(new InsertReceiptCommand(
-                    assetRequest.getAsset().getKeys().get("receiptid"),
-                    assetRequest.getAsset().getAttributes().get("eReceipt")
-            ));
-        else
-            commandGateway.send(new InsertReceiptCustomerCommand(
-                    assetRequest.getAsset().getKeys().get("receiptid"),
-                    assetRequest.getAsset().getKeys().get("customerid"),
-                    assetRequest.getAsset().getAttributes().get("eReceipt")
-            ));
-        return assetRequest;
-    }
-*/
+
     @PostMapping(value = "/receipt/{receiptId}", consumes = {APPLICATION_JSON_VALUE}, produces = {APPLICATION_JSON_VALUE})
     public int insertReceipt(
             @PathVariable String receiptId,
@@ -111,5 +97,16 @@ public class ReceiptController {
             @RequestBody String receiptData) {
         commandGateway.send(new InsertReceiptCustomerCommand(receiptId, customerId, receiptData));
         return 1;
+    }
+
+    @DeleteMapping(value = "/receipt", produces = {APPLICATION_JSON_VALUE})
+    public int deleteAll() {
+        try {
+            receiptRepository.deleteAll();
+            customerAppRepository.deleteAll();
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }
