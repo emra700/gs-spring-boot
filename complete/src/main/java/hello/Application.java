@@ -1,7 +1,13 @@
 package hello;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.mapdb.DB;
+import org.mapdb.DBMaker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,4 +36,26 @@ public class Application {
         };
     }
 
+
+
+
+
+
+    @Bean
+    public DB mapdb() {
+
+
+        if (!Files.isDirectory(Paths.get(".mapdb"))) {
+            try {
+                Files.createDirectory(Paths.get(".mapdb"));
+            } catch (IOException e) {
+                throw new RuntimeException("Error start application", e);
+            }
+        }
+
+        return DBMaker.newFileDB(new File(".mapdb/testdb"))
+                .closeOnJvmShutdown()
+                .encryptionEnable("password")
+                .make();
+    }
 }
