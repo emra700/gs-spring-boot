@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.*;
 import java.io.IOException;
 import java.util.*;
 
+import com.google.common.collect.Lists;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 /**
@@ -37,7 +39,9 @@ public class ReceiptController {
 
     @GetMapping(value = "/receipts", produces = {APPLICATION_JSON_VALUE})
     public Iterable<Receipt> getAllReceipts() {
-        return receiptRepository.findAll();
+        Iterable<Receipt> all = receiptRepository.findAll();
+
+        return Lists.newArrayList( all );
     }
 
     @GetMapping(value = "/customers", produces = {APPLICATION_JSON_VALUE})
