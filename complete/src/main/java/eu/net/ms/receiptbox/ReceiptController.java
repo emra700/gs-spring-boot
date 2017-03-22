@@ -9,6 +9,7 @@ import eu.net.ms.receiptbox.model.enteties.AppCustomer;
 import eu.net.ms.receiptbox.repositories.*;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,17 +30,19 @@ public class ReceiptController {
     private CommandGateway commandGateway;
     @Autowired
     private ReceiptRepository receiptRepository;
+    @Autowired
+    private CustomerAppRepository customerAppRepository;
 
     @GetMapping(value = "/receipts", produces = {APPLICATION_JSON_VALUE})
     public Iterable<Receipt> getAllReceipts() {
         return receiptRepository.findAll();
     }
-/*
+
     @GetMapping(value = "/customers", produces = {APPLICATION_JSON_VALUE})
     public Iterable<AppCustomer> getAllCustomers() {
         return customerAppRepository.findAll();
     }
-*/
+
     @GetMapping(value = "/receipt/{receiptId}", produces = {APPLICATION_JSON_VALUE})
     public Receipt getReceipt(@PathVariable String receiptId) {
         Receipt receipt = receiptRepository.findOne(receiptId);
@@ -64,6 +67,13 @@ public class ReceiptController {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             JsonNode jsonNode = objectMapper.readTree(assetRequest);
+            String receiptId = jsonNode.findPath("receiptid").asText();
+            String customerId = jsonNode.findPath("customerid").asText();
+            String receiptData = jsonNode.findPath("eReceipt").asText();
+            if (receiptId != "" && customerId != "")
+                commandGateway.send(new InsertReceiptCustomerCommand(receiptId, customerId, receiptData));
+            if (receiptId != "" && customerId == "")
+                commandGateway.send(new InsertReceiptCommand(receiptId, receiptData));
             return assetRequest;
         } catch (IOException e) {
             throw new RuntimeException("");
