@@ -1,0 +1,1 @@
+var receiptboxApp = angular.module('receiptboxApp', []);

@@ -1,0 +1,117 @@
+body {
+  padding: 20px;
+}
+
+h1 {
+  border-bottom: 1px solid gray;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+/* View: Phone list */
+.phones {
+  list-style: none;
+}
+
+.phones li {
+  clear: both;
+  height: 115px;
+  padding-top: 15px;
+}
+
+.thumb {
+  float: left;
+  height: 100px;
+  margin: -0.5em 1em 1.5em 0;
+  padding-bottom: 1em;
+  width: 100px;
+}
+
+/* View: Phone detail */
+.phone {
+  background-color: white;
+  border: 1px solid black;
+  float: left;
+  height: 400px;
+  margin-bottom: 2em;
+  margin-right: 3em;
+  padding: 2em;
+  width: 400px;
+}
+
+.phone-thumbs {
+  list-style: none;
+  margin: 0;
+}
+
+.phone-thumbs img {
+  height: 100px;
+  padding: 1em;
+  width: 100px;
+}
+
+.phone-thumbs li {
+  background-color: white;
+  border: 1px solid black;
+  display: inline-block;
+  margin: 1em;
+}
+
+.specs {
+  clear: both;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.specs dt {
+  font-weight: bold;
+}
+
+.specs > li {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+}
+
+.specs > li > span {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+
+.panel-body-custom {
+  background-image: none;
+  background-color: #f2f2f3;
+  color: #0;
+}
+
+.panel-default > .panel-heading-custom {
+  background-image: none;
+  background-color: #ed6b71;
+  color: #ffffff;
+}
+
+.panel-default > .panel-heading-custom-blue {
+  background-image: none;
+  background-color: #698aec;
+  color: #ffffff;
+}
+
+.panel-default > .panel-heading-custom-green {
+  background-image: none;
+  background-color: #8aec69;
+  color: #ffffff;
+}
+
+.panel-default > .panel-heading-custom-purple {
+  background-image: none;
+  background-color: #8a69ec;
+  color: #ffffff;
+}
+
+.modal {
+    overflow: hidden;
+}
